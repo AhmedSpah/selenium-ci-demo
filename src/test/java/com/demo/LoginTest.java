@@ -36,6 +36,18 @@ public void setup() {
         Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
     }
 
+    @Test
+    public void testInvalidLogin() {
+        driver.get("https://www.saucedemo.com");
+
+        driver.findElement(By.id("user-name")).sendKeys("wrong_user");
+        driver.findElement(By.id("password")).sendKeys("wrong_password");
+        driver.findElement(By.id("login-button")).click();
+
+        String errorMessage = driver.findElement(By.cssSelector("[data-test='error']")).getText();
+        Assert.assertTrue(errorMessage.contains("Username and password do not match"));
+    }
+
     @AfterMethod
     public void teardown() {
         if (driver != null) {
