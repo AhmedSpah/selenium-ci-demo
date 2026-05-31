@@ -1,0 +1,27 @@
+name: Selenium Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: الخطوة الاولى - اجيب الكود
+        uses: actions/checkout@v4
+
+      - name: الخطوة التانية - سيت اب Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: الخطوة التالتة - سيت اب Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: الخطوة الرابعة - شغّل الاختبارات
+        run: mvn test
